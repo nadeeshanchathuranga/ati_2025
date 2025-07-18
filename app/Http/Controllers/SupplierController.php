@@ -15,7 +15,7 @@ class SupplierController extends Controller
     ->orderByRaw("FIELD(status, 'active', 'inactive')")
     ->get();
 
- 
+
 
         return view('suppliers.index', compact('suppliers'));
     }
@@ -77,21 +77,54 @@ public function store(Request $request)
     return redirect()->route('suppliers.index')->with('success', 'Supplier created successfully!');
 }
 
-public function teaStock(Request $request)
+
+ public function teaStock(Request $request)
 {
+    // Validate incoming request
     $validated = $request->validate([
         'supplier_id' => 'required|exists:suppliers,id',
         'tea_weight'  => 'required|numeric|min:1',
         'date'        => 'required|date',
     ]);
 
-    SupplierTeaStock::create($validated);
+    // Get the supplier
+    $supplier = Supplier::find($request->supplier_id);
 
+    if (!$supplier) {
+        return redirect()->back()->withErrors('Supplier not found.');
+    }
+
+    // Get the tea record
+    $tea = Tea::find($supplier->tea_id);
+
+    if (!$tea) {
+        return redirect()->back()->withErrors('Tea not found for this supplier.');
+    }
+
+    // Calculate total cost for this stock
+    $teaCost = $tea->buy_price * $request->tea_weight;
+
+  
+
+    // Update tea total weight
+    $tea->total_weight += $request->tea_weight;
+    $tea->save();
+
+    // Update supplier's tea_income
+    $supplier->tea_income += $teaCost;
+    $supplier->save();
+
+    // Create the stock record
+    SupplierTeaStock::create([
+        'supplier_id' => $supplier->id,
+        'tea_weight'  => $request->tea_weight,
+        'date'        => $request->date,
+    ]);
 
     return redirect()->route('suppliers.index')->with('success', 'Tea stock added successfully.');
-
-
 }
+
+
 public function showDetails($id)
 {
     $supplier = Supplier::with(['tea', 'supplierTeaStock'])->findOrFail($id);

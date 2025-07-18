@@ -29,12 +29,13 @@ Route::get('/suppliers/{supplier}/tea-stock', [SupplierController::class, 'getTe
 Route::get('/suppliers/{id}/details', [SupplierController::class, 'showDetails']);
 Route::resource('fertilizers', FertilizerController::class);
 Route::get('/fertilizers_sale', [FertilizerController::class, 'fertilizerSale'])->name('fertilizers_sale');
-Route::post('/fertilizers_sale/store', [FertilizerController::class, 'store'])->name('fertilizer-sale.store');
+Route::post('/fertilizers_sale/store', [FertilizerController::class, 'fertilizerSaleStore'])->name('fertilizer-sale.store');
 
 
 
 Route::resource('sales', SaleController::class);
 Route::post('/sales/store', [SaleController::class, 'store'])->name('sales.store');
+Route::get('/sales/receipt/{id}', [SaleController::class, 'receipt'])->name('sales.receipt');
 
 
 require __DIR__.'/auth.php';

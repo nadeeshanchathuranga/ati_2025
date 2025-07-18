@@ -32,7 +32,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Fertilizer Name</th>
-                                <th>Stock (Kg)</th>
+                                <th>Stock (g)</th>
                                 <th>Price (Rs)</th>
                                 <th>Date</th>
                                 <th>Status</th>

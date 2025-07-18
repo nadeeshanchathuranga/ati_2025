@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\Fertilizer;
 use App\Models\Supplier;
+use App\Models\FertilizerSale;
+use App\Models\FertilizerSaleItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FertilizerController extends Controller
 {
@@ -69,20 +72,101 @@ class FertilizerController extends Controller
 
 public function fertilizerSale()
 {
-    $suppliers = Supplier::with(['tea', 'supplierTeaStock'])
-        ->whereHas('supplierTeaStock') // Only get suppliers with tea stock
-        ->orderByRaw("FIELD(status, 'active', 'inactive')")
-        ->get();
+    $suppliers = Supplier::with(['tea', 'supplierTeaStock'])->get();
+    $fertilizers = Fertilizer::where('status','active')->get();
 
-    // Calculate income for each supplier
-    $suppliers->each(function ($supplier) {
-        $totalGrams = $supplier->supplierTeaStock->sum('tea_weight');
-        $pricePerGram = $supplier->tea->buy_price ?? 0;
-        $supplier->calculated_income = $totalGrams * $pricePerGram;
-    });
 
-    return view('fertilizers.sale', compact('suppliers'));
+
+    return view('fertilizers.sale', compact('suppliers','fertilizers'));
 }
+
+
+
+
+public function fertilizerSaleStore(Request $request)
+{
+    $request->validate([
+        'supplier_id'     => 'required|exists:suppliers,id',
+        'supplier_income' => 'required|numeric|min:0',
+        'total_cost'      => 'required|numeric|min:0',
+        'fertilizers'     => 'required|array',
+    ]);
+
+    // Calculate total from fertilizers
+    $calculatedTotal = 0;
+
+    foreach ($request->fertilizers as $fertilizerId => $data) {
+        if (!isset($data['selected'])) continue;
+
+        $grams = floatval($data['grams'] ?? 0);
+        if ($grams <= 0) continue;
+
+        $fertilizer = Fertilizer::findOrFail($fertilizerId);
+        $price = $fertilizer->price;
+        $calculatedTotal += $grams * $price;
+
+        if ($grams > $fertilizer->stock) {
+            return back()->with('error', "Not enough stock for {$fertilizer->name}.");
+        }
+    }
+
+    if ($calculatedTotal > $request->supplier_income) {
+        return back()->with('error', 'Total cost exceeds supplier income.');
+    }
+
+    try {
+        DB::beginTransaction();
+
+        // Create the fertilizer sale
+        $sale = FertilizerSale::create([
+            'supplier_id'     => $request->supplier_id,
+            'supplier_income' => $request->supplier_income,
+            'total_cost'      => $calculatedTotal,
+        ]);
+
+        // Deduct the total cost from supplier's tea income
+        $supplier = Supplier::findOrFail($request->supplier_id);
+        $supplier->tea_income -= $calculatedTotal;
+        $supplier->save();
+
+        // Create sale items and update fertilizer stock
+        foreach ($request->fertilizers as $fertilizerId => $data) {
+            if (!isset($data['selected'])) continue;
+
+            $grams = floatval($data['grams'] ?? 0);
+            if ($grams <= 0) continue;
+
+            $fertilizer = Fertilizer::findOrFail($fertilizerId);
+            $unitPrice = $fertilizer->price;
+            $lineTotal = $grams * $unitPrice;
+
+            FertilizerSaleItem::create([
+                'fertilizer_sale_id' => $sale->id,
+                'fertilizer_id'      => $fertilizerId,
+                'quantity_grams'     => $grams,
+                'unit_price'         => $unitPrice,
+                'line_total'         => $lineTotal,
+            ]);
+
+            // Decrement stock
+            $fertilizer->decrement('stock', $grams);
+        }
+
+        DB::commit();
+
+        return redirect()->route('fertilizers_sale')->with('success', 'Fertilizer sale recorded successfully!');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('error', 'Error: ' . $e->getMessage());
+    }
+}
+
+
+
+
+
+
+
 
 
 }

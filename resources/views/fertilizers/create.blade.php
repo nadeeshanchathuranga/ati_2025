@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="text-white">Stock (kg)</label>
+                        <label class="text-white">Stock (g)</label>
                         <input type="number" name="stock" class="form-control" step="1" required>
                     </div>
 

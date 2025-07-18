@@ -6,6 +6,40 @@
     <div class="row">
 
 
+  <div class="col-lg-5">
+            <h1 class="text-white pb-3">
+                Customer Details
+            </h1>
+
+            <div class="mb-3">
+                <label for="name" class="form-label text-white">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label text-white">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label text-white">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone number">
+            </div>
+
+              <div class="mb-3">
+                <label for="address" class="form-label text-white">Address</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Enter address number">
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
         <div class="col-lg-7">
             <div class="billing-card">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -110,6 +144,7 @@
      onclick="{{ $tea->total_weight > 0 ? 'selectTeaItem(this)' : '' }}">
 
                             <div class="card-body text-black">
+
                                 <h5 class="card-title text-black text-uppercase">{{ $tea->tea_grade }}</h5>
                                 <p class="card-text mb-1 text-black"><strong>Buy Price:</strong> {{ number_format($tea->buy_price, 2) }} LKR</p>
                                 <p class="card-text mb-1 text-black"><strong>Selling Price:</strong> {{ number_format($tea->selling_price, 2) }} LKR</p>
@@ -676,7 +711,14 @@ function confirmOrder() {
             balance,
             payment_method: selectedPaymentMethod,
             order_date: new Date().toISOString().split('T')[0],
-            order_time: new Date().toTimeString().split(' ')[0]
+            order_time: new Date().toTimeString().split(' ')[0],
+
+              customer: {
+        name: document.getElementById('name')?.value || '',
+        email: document.getElementById('email')?.value || '',
+        phone: document.getElementById('phone')?.value || '',
+        address: document.getElementById('address')?.value || ''
+    },
         };
 
         const csrfToken = document.querySelector('meta[name="csrf-token"]');
@@ -706,10 +748,16 @@ function confirmOrder() {
                 : await response.text();
 
             if (response.ok && data.success) {
-                alert('Sale completed successfully!');
-                console.log('Sale Details:', data.data);
-                resetForm();
-            } else {
+    alert('Sale completed successfully!');
+    console.log('Sale Details:', data.data);
+
+    // Open printable receipt
+    const receiptUrl = `/sales/receipt/${data.data.sale_id}`;
+    window.open(receiptUrl, '_blank');
+
+    resetForm();
+}
+ else {
                 const errorMessage = data.message || 'Failed to process sale';
                 throw new Error(errorMessage);
             }

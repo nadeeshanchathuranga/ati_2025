@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sale;
 use App\Models\Customer;
-use App\Models\SalesItem;
+use App\Models\SaleItem;
 use App\Models\Tea;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -26,26 +26,32 @@ class SaleController extends Controller
 {
     $teas = Tea::with('suppliers.supplierTeaStock')->where('status', '1')->get();
 
-    // Add total_weight attribute to each tea
-    foreach ($teas as $tea) {
-        $totalWeight = 0;
-        foreach ($tea->suppliers as $supplier) {
-            $totalWeight += $supplier->supplierTeaStock->sum('tea_weight');
-        }
-        $tea->total_weight = $totalWeight;
-    }
 
     $customers = Customer::all();
     return view('sales.create', compact('customers', 'teas'));
 }
 
 
- public function store(Request $request)
+
+
+public function receipt($id)
+{
+    $sale = Sale::with(['customer', 'items.tea'])->findOrFail($id);
+    return view('sales.receipt', compact('sale'));
+}
+
+
+
+public function store(Request $request)
 {
     try {
-        // Validate the incoming request
+        // Validate base fields
         $validatedData = $request->validate([
             'customer_id' => 'nullable|integer|exists:customers,id',
+            'customer.name' => 'nullable|string|max:255',
+            'customer.email' => 'nullable|email|max:255',
+            'customer.phone' => 'nullable|string|max:20',
+            'customer.address' => 'nullable|string|max:255',
             'total_cost' => 'required|numeric|min:0',
             'cash' => 'required|numeric|min:0',
             'discount' => 'required|numeric|min:0',
@@ -60,6 +66,7 @@ class SaleController extends Controller
             'balance' => 'required|numeric'
         ]);
 
+        // Extra check for cash vs total
         if ($validatedData['cash'] < $validatedData['total_cost']) {
             return response()->json([
                 'success' => false,
@@ -69,8 +76,23 @@ class SaleController extends Controller
 
         DB::beginTransaction();
 
+        // Handle customer creation or fetch
+        $customerId = $validatedData['customer_id'];
+
+        if (!$customerId && isset($validatedData['customer']['name'])) {
+            $customer = Customer::create([
+                'name' => $validatedData['customer']['name'],
+                'email' => $validatedData['customer']['email'] ?? null,
+                'phone' => $validatedData['customer']['phone'] ?? null,
+                'address' => $validatedData['customer']['address'] ?? null,
+            ]);
+
+            $customerId = $customer->id;
+        }
+
+        // Create Sale
         $sale = Sale::create([
-            'customer_id' => $validatedData['customer_id'],
+            'customer_id' => $customerId,
             'total_cost' => $validatedData['total_cost'],
             'cash' => $validatedData['cash'],
             'discount' => $validatedData['discount'],
@@ -82,7 +104,7 @@ class SaleController extends Controller
 
         foreach ($validatedData['items'] as $item) {
             $tea = Tea::where('tea_grade', $item['tea_grade'])
-                      ->whereDate('date', $item['date']) // Ensures date-only match
+                      ->whereDate('date', $item['date'])
                       ->lockForUpdate()
                       ->first();
 
@@ -90,27 +112,23 @@ class SaleController extends Controller
                 throw new \Exception("Tea grade '{$item['tea_grade']}' not found for date '{$item['date']}'");
             }
 
-            $availableWeight = round($tea->total_weight, 2);
             $requestedWeight = round($item['weight'], 2);
+            $availableWeight = round($tea->total_weight, 2);
 
             if ($availableWeight < $requestedWeight) {
                 throw new \Exception("Insufficient quantity for {$item['tea_grade']}. Available: {$availableWeight}g, Requested: {$requestedWeight}g");
             }
 
             SaleItem::create([
-                'sale_id' => $sale->id,
-                'tea_grade' => $item['tea_grade'],
-                'weight' => $requestedWeight,
-                'unit_price' => round($item['unit_price'], 2),
-                'item_total' => round($item['item_total'], 2),
-                'buy_price' => round($item['buy_price'], 2),
-                'tea_date' => $item['date'],
+                'sales_id' => $sale->id,
+                'tea_id' => $tea->id,
+                'quantity' => $requestedWeight,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
 
-            $tea->total_weight -= $requestedWeight;
-            $tea->save();
+            // Reduce stock
+            $tea->reduceStock($requestedWeight);
 
             $processedItems[] = [
                 'tea_grade' => $item['tea_grade'],
@@ -128,6 +146,7 @@ class SaleController extends Controller
             'message' => 'Sale completed successfully',
             'data' => [
                 'sale_id' => $sale->id,
+                'customer_id' => $customerId,
                 'total_amount' => $sale->total_cost,
                 'cash_received' => $sale->cash,
                 'discount_applied' => $sale->discount,
@@ -156,7 +175,12 @@ class SaleController extends Controller
             'message' => $e->getMessage()
         ], 500);
     }
+
+
+
 }
+
+
 
 
 

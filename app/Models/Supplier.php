@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Supplier extends Model
@@ -12,10 +12,10 @@ class Supplier extends Model
         'supplier_name',
         'address',
         'phone_number',
-        'tea_weight',
         'tea_income',
         'collect_date_time',
         'status',
+
     ];
 
      public function tea()
@@ -29,5 +29,7 @@ class Supplier extends Model
     }
 
 
-    
+
+
+
 }

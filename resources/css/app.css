@@ -214,3 +214,60 @@ table.table-bordered.dataTable {
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: .5em;
+    display: inline-block;
+    width: auto;
+    color: #000;
+}
+
+
+/* DataTables Button Container */
+.dt-buttons {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Individual Button Style */
+.dt-button {
+    background-color: #198754; /* Bootstrap 'success' */
+    border: none;
+    color: #fff !important;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover Effect */
+.dt-button:hover {
+    background-color: #146c43 !important;
+}
+
+/* Print Button Different Color (optional) */
+.dt-button.buttons-print {
+    background-color: #0d6efd;
+}
+.dt-button.buttons-print:hover {
+    background-color: #0b5ed7 !important;
+}
+
+/* Excel Button Different Color (optional) */
+.dt-button.buttons-excel {
+    background-color: #117a8b;
+}
+.dt-button.buttons-excel:hover {
+    background-color: #0d6b1a !important;
+}
+
+/* Optional: Add icons before text */
+.dt-button:before {
+    margin-right: 6px;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+

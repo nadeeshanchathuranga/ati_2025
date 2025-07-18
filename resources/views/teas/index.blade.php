@@ -44,6 +44,7 @@
             <th>Buy Price (per 1g)</th>
             <th>Selling Price (per 1g)</th>
             <th>Date</th>
+            <th>Total Weight</th>
             <th>Status</th>
             <th class="text-center">Action</th>
         </tr>
@@ -56,6 +57,7 @@
             <td>{{ $tea->buy_price }}</td>
             <td>{{ $tea->selling_price }}</td>
             <td>{{ $tea->date }}</td>
+            <td>{{ $tea->total_weight }} g</td>
             <td>
                 <span class="badge {{ $tea->status ? 'bg-success' : 'bg-secondary' }}">
                     {{ $tea->status ? 'Active' : 'Inactive' }}
@@ -90,13 +92,21 @@
          @endsection
 
          <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    new DataTable("#teaTable", {
+    document.addEventListener("DOMContentLoaded", function () {
+        new DataTable("#teaTable", {
+            dom: 'Bfrtip',
+            buttons: [
+                 
+                'excelHtml5',
+                'pdfHtml5',
 
-      buttons: ["copyHtml5", "csvHtml5", "excelHtml5", "pdfHtml5"],
-      responsive: true,
-      paging: true,
+            ],
+            responsive: true,
+            paging: true,
+        });
     });
-  });
+
+
+
 </script>
 

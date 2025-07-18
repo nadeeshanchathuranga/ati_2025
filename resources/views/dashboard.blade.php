@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container-fluid mt-5">
-        <div class="container">
-           <div class="row">
+        <div class="container mx-auto">
+           <div class="row mx-auto">
     <!-- Tea Price Card -->
-    <div class="col-lg-2 d-flex">
+    <div class="col-lg-3 mb-3 d-flex">
         <div class="card text-center p-3 w-100 d-flex flex-column">
             <img src="{{ asset('images/tea-leaves.png') }}" class="card-img-top w-50 mx-auto mt-3" alt="Tea Leaves">
             <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
@@ -16,7 +16,7 @@
     </div>
 
     <!-- Supplier Card -->
-    <div class="col-lg-2 d-flex">
+    <div class="col-lg-3 mb-3 d-flex">
         <div class="card text-center p-3 w-100 d-flex flex-column">
             <img src="{{ asset('images/supplier.png') }}" class="card-img-top w-50 mx-auto mt-3" alt="Supplier">
             <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
@@ -27,7 +27,7 @@
     </div>
 
 
-      <div class="col-lg-2 d-flex">
+      <div class="col-lg-3 mb-3 d-flex">
         <div class="card text-center p-3 w-100 d-flex flex-column">
             <img src="{{ asset('images/in-stock.png') }}" class="card-img-top w-50 mx-auto mt-3" alt="Supplier">
             <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
@@ -39,7 +39,7 @@
 
 
     <!-- Fertilizer Price Card -->
-    <div class="col-lg-2 d-flex">
+    <div class="col-lg-3 mb-3 d-flex">
         <div class="card text-center p-3 w-100 d-flex flex-column">
             <img src="{{ asset('images/fertilizer.png') }}" class="card-img-top w-50 mx-auto mt-3" alt="Fertilizer">
             <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
@@ -52,7 +52,7 @@
 
 
       <!-- Fertilizer Price Card -->
-    <div class="col-lg-2 d-flex">
+    <div class="col-lg-3 mb-3 d-flex">
         <div class="card text-center p-3 w-100 d-flex flex-column">
             <img src="{{ asset('images/vendor.png') }}" class="card-img-top w-50 mx-auto mt-3" alt="Fertilizer">
             <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
@@ -64,9 +64,9 @@
 
 
      <!-- Fertilizer Price Card -->
-    <div class="col-lg-2 d-flex">
+    <div class="col-lg-3 mb-3 d-flex">
         <div class="card text-center p-3 w-100 d-flex flex-column">
-            <img src="{{ asset('images/fertilizer.png') }}" class="card-img-top w-50 mx-auto mt-3" alt="Fertilizer">
+            <img src="{{ asset('images/fertilizer_pos.png') }}" class="card-img-top w-50 mx-auto mt-3" alt="Fertilizer">
             <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
                 <h2 class="h4 fw-bold">Fertilizer POS</h2>
                 <a href="{{ route('fertilizers_sale') }}" class="btn btn-primary mt-3 px-1">Enter</a>

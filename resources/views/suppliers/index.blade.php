@@ -55,11 +55,11 @@
     $income = $totalGrams * $pricePerGram;
 @endphp
 
-<td>
+{{-- <td>
     {{ number_format($totalGrams) }} g × {{ number_format($pricePerGram, 2) }} = {{ number_format($income, 2) }} LKR
-</td>
+</td> --}}
 
-
+       <td>{{ number_format($supplier->tea_income) ?? 'N/A' }}</td>
 
 <td>{{ $supplier->phone_number }}</td>
                                  <td>
@@ -214,11 +214,24 @@
             });
         });
 
-        new DataTable("#supplierTable", {
-            buttons: ["copyHtml5", "csvHtml5", "excelHtml5", "pdfHtml5"],
+
+
+ new DataTable("#supplierTable", {
+            dom: 'Bfrtip',
+            buttons: [
+
+                'excelHtml5',
+                'pdfHtml5',
+
+            ],
             responsive: true,
             paging: true,
         });
+
+
+
+
+
     });
 </script>
 
