@@ -44,7 +44,16 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $fertilizer->name }}</td>
-                                    <td>{{ $fertilizer->stock }}</td>
+                               <td>
+    @if ($fertilizer->stock <= 10)
+        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-red-100 text-red-800">
+            Low ({{ $fertilizer->stock }}g)
+        </span>
+    @else
+        {{ $fertilizer->stock }}g
+    @endif
+</td>
+
                                     <td>{{ $fertilizer->price }}</td>
                                     <td>{{ $fertilizer->date }}</td>
                                     <td>

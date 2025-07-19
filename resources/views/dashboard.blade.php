@@ -69,7 +69,7 @@
             <img src="{{ asset('images/fertilizer_pos.png') }}" class="card-img-top w-50 mx-auto mt-3" alt="Fertilizer">
             <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
                 <h2 class="h4 fw-bold">Fertilizer POS</h2>
-                <a href="{{ route('fertilizers_sale') }}" class="btn btn-primary mt-3 px-1">Enter</a>
+                <a href="{{ route('fertilizers_sale_view') }}" class="btn btn-primary mt-3 px-1">Enter</a>
             </div>
         </div>
     </div>

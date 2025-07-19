@@ -82,6 +82,16 @@ public function fertilizerSale()
 
 
 
+public function fertilizerSaleView()
+{
+    $sales = FertilizerSale::with(['supplier', 'items.fertilizer'])
+        ->latest()
+        ->get()
+        ->groupBy('supplier_id'); // ✅ Group by supplier_id
+
+    return view('fertilizers.fertilizer_view', compact('sales'));
+}
+
 
 public function fertilizerSaleStore(Request $request)
 {

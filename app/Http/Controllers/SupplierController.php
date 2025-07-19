@@ -12,7 +12,7 @@ class SupplierController extends Controller
     {
 
       $suppliers = Supplier::with('tea','supplierTeaStock')
-    ->orderByRaw("FIELD(status, 'active', 'inactive')")
+    ->orderByRaw("FIELD(status, 'active', 'inactive')") 
     ->get();
 
 
@@ -35,7 +35,7 @@ class SupplierController extends Controller
 
    public function teaStockForm()
 {
-       $suppliers = Supplier::all();
+       $suppliers = Supplier::where('status','active')->get();
     return view('suppliers.tea_stock_form', compact('suppliers'));
 }
 
@@ -104,7 +104,7 @@ public function store(Request $request)
     // Calculate total cost for this stock
     $teaCost = $tea->buy_price * $request->tea_weight;
 
-  
+
 
     // Update tea total weight
     $tea->total_weight += $request->tea_weight;
@@ -157,9 +157,7 @@ public function update(Request $request, Supplier $supplier)
             'required',
             'regex:/^\d{10}$/'
         ],
-        'tea_weight' => 'required|numeric|min:0',
-        'tea_income' => 'required|numeric|min:0',
-        'collect_date_time' => 'required|date',
+
 
     ], [
         'phone_number.regex' => 'Phone number must be exactly 10 digits.',
@@ -172,9 +170,7 @@ public function update(Request $request, Supplier $supplier)
         'supplier_name' => $request->supplier_name,
         'address' => $request->address,
         'phone_number' => $request->phone_number,
-        'tea_weight' => $request->tea_weight,
-        'tea_income' => $request->tea_income,
-        'collect_date_time' => $request->collect_date_time,
+
         'status' => '1',
     ]);
 

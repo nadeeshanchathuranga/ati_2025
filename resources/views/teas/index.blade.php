@@ -57,7 +57,16 @@
             <td>{{ $tea->buy_price }}</td>
             <td>{{ $tea->selling_price }}</td>
             <td>{{ $tea->date }}</td>
-            <td>{{ $tea->total_weight }} g</td>
+      <td>
+    @if ($tea->total_weight <= 100)
+        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-red-100 text-red-800">
+            Low Stock ({{ $tea->total_weight }}g)
+        </span>
+    @else
+        {{ $tea->total_weight }} g
+    @endif
+</td>
+
             <td>
                 <span class="badge {{ $tea->status ? 'bg-success' : 'bg-secondary' }}">
                     {{ $tea->status ? 'Active' : 'Inactive' }}
@@ -96,7 +105,7 @@
         new DataTable("#teaTable", {
             dom: 'Bfrtip',
             buttons: [
-                 
+
                 'excelHtml5',
                 'pdfHtml5',
 

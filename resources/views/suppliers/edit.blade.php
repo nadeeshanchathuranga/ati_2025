@@ -12,9 +12,9 @@
                     @csrf
                     @method('PUT')
 
-                    <div class="row">
+                <div class="row">
                         <!-- Left Column -->
-                        <div class="col-md-6">
+                        <div class="col-md-8 mx-auto">
 
                             <div class="mb-3">
                                 <label class="text-white">Tea Grade</label>
@@ -55,48 +55,14 @@
                                        title="Phone number must be exactly 10 digits">
                             </div>
 
-                        </div>
 
-                        <!-- Right Column -->
-                        <div class="col-md-6">
-
-                            <div class="mb-3">
-                                <label class="text-white">Tea Weight (kg)</label>
-                                <input type="number" step="0.01" name="tea_weight" id="tea_weight"
-                                       class="form-control" value="{{ $supplier->tea_weight }}" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="text-white">Tea Weight (g)</label>
-                                <input type="number" step="0.01" name="tea_weight_grams" id="tea_weight_grams"
-                                       class="form-control" value="{{ $supplier->tea_weight * 1000 }}">
-                            </div>
-
-                            <div class="mb-3 d-none">
-                                <label class="text-white">Price per Gram (Rs)</label>
-                                <input type="number" step="0.01" name="price_per_gram" id="price_per_gram"
-                                       class="form-control" readonly>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="text-white">Tea Income (Rs)</label>
-                                <input type="number" step="0.01" name="tea_income" id="tea_income"
-                                       class="form-control" value="{{ $supplier->tea_income }}" readonly required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="text-white">Collection Date & Time</label>
-                                <input type="datetime-local" name="collect_date_time" class="form-control"
-                                       value="{{ \Carbon\Carbon::parse($supplier->collect_date_time)->format('Y-m-d\TH:i') }}"
-                                       required>
-                            </div>
-
-                            <div class="mb-3 text-end">
-                                <a href="{{ route('suppliers.index') }}" class="btn btn-secondary me-2">Cancel</a>
-                                <button type="submit" class="btn btn-primary px-4">Update Supplier</button>
+                             <div class="mb-3 text-end">
+                                <button type="submit" class="btn btn-success px-4">Edit Supplier</button>
                             </div>
 
                         </div>
+
+
                     </div>
 
                 </form>

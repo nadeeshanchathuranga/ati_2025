@@ -28,6 +28,7 @@ Route::get('/suppliers/{supplier}/tea-stock', [SupplierController::class, 'getTe
 
 Route::get('/suppliers/{id}/details', [SupplierController::class, 'showDetails']);
 Route::resource('fertilizers', FertilizerController::class);
+Route::get('/fertilizers_sale_view', [FertilizerController::class, 'fertilizerSaleView'])->name('fertilizers_sale_view');
 Route::get('/fertilizers_sale', [FertilizerController::class, 'fertilizerSale'])->name('fertilizers_sale');
 Route::post('/fertilizers_sale/store', [FertilizerController::class, 'fertilizerSaleStore'])->name('fertilizer-sale.store');
 
