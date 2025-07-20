@@ -8,16 +8,37 @@
       <!-- Fonts -->
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/b-print-2.3.3/fh-3.3.1/r-2.4.0/sb-1.4.0/datatables.min.css" />
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+
+      <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
+<link href="{{ asset('css/all.css') }}" rel="stylesheet">
+
+
+
+
 
       @vite(['resources/css/app.css', 'resources/js/app.js'])
       <style>
          body {
          font-family: 'Montserrat', sans-serif;
          }
+         @font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/montserrat/montserrat-regular.woff2') format('woff2'),
+         url('/fonts/montserrat/montserrat-regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/montserrat/montserrat-bold.woff2') format('woff2'),
+         url('/fonts/montserrat/montserrat-bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
       </style>
    </head>
    <body class="antialiased">
@@ -30,27 +51,20 @@
          </main>
 
 
-
       </div>
    </body>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"  ></script>
-  <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/b-print-2.3.3/fh-3.3.1/r-2.4.0/sb-1.4.0/datatables.min.js"></script>
+
+ <script src="{{ asset('js/jquery.min.js') }}"></script>
+ <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+ <script src="{{ asset('js/datatables.min.js') }}"></script>
+
+ <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+ <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('js/jszip.min.js') }}"></script>
 
 
-
-
-
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-<!-- Buttons extension -->
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-
-<!-- JSZip (for Excel export) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
       // Auto-fade success alert
     setTimeout(function() {
