@@ -5,7 +5,7 @@
 
 <div class="mb-3 text-end">
                 <a href="{{ route('sales.create') }}" class="btn btn-success">
-                    <i class="fas fa-plus-circle"></i> Add New Sale
+                  +  Add New Sale
                 </a>
             </div>
 

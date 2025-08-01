@@ -22,7 +22,7 @@
 
                 <div class="mb-3 text-end">
                     <a href="{{ route('suppliers.create') }}" class="btn btn-success">
-                        <i class="fas fa-plus-circle"></i> Add New Supplier
+                      +  Add New Supplier
                     </a>
                 </div>
 
@@ -69,7 +69,7 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('suppliers.edit', $supplier->id) }}" class="btn btn-sm btn-outline-primary me-1">
-                                        <i class="fas fa-edit"></i>
+                                        Edit
                                     </a>
 
 
@@ -78,16 +78,21 @@
    data-id="{{ $supplier->id }}"
    data-bs-toggle="modal"
    data-bs-target="#supplierViewModal">
-    <i class="fas fa-eye"></i>
+View
 </a>
                                     <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" class="d-inline">
                                         @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-{{ $supplier->status === 'active' ? 'danger' : 'success' }}"
-                                            onclick="return confirm('Are you sure you want to {{ $supplier->status === 'active' ? 'deactivate' : 'activate' }} this supplier?')">
-                                            <i class="fas {{ $supplier->status === 'active' ? 'fa-user-slash' : 'fa-user-check' }}"></i>
-                                        </button>
+                                      <button type="submit"
+        class="btn btn-sm btn-outline-{{ $supplier->status === 'active' ? 'danger' : 'success' }}"
+        onclick="return confirm('Are you sure you want to {{ $supplier->status === 'active' ? 'deactivate' : 'activate' }} this supplier?')">
+    <i class="fas {{ $supplier->status === 'active' ? 'fa-user-slash' : 'fa-user-check' }}"></i>
+    {{ $supplier->status === 'active' ? 'Deactivate' : 'Activate' }}
+</button>
+
                                     </form>
-                                </td>
+                               </td>
+
+
                             </tr>
                             @endforeach
                         </tbody>

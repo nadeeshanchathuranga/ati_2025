@@ -12,7 +12,7 @@ class SupplierController extends Controller
     {
 
       $suppliers = Supplier::with('tea','supplierTeaStock')
-    ->orderByRaw("FIELD(status, 'active', 'inactive')") 
+    ->orderByRaw("FIELD(status, 'active', 'inactive')")
     ->get();
 
 
@@ -189,6 +189,24 @@ public function update(Request $request, Supplier $supplier)
     }
 
 
+public function pay(Request $request)
+{
+    $request->validate([
+        'supplier_id' => 'required|exists:suppliers,id',
+    ]);
+
+    $supplier = Supplier::findOrFail($request->supplier_id);
+
+    // Example: reset tea_income to 0 and log transaction (customize as needed)
+    $paidAmount = $supplier->tea_income;
+
+    $supplier->tea_income = 0;
+    $supplier->save();
+
+    // Optional: Record transaction in a payments table
+
+    return redirect()->back()->with('success', "Paid LKR " . number_format($paidAmount, 2) . " to {$supplier->supplier_name}");
+}
 
 
 

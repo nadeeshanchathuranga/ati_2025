@@ -22,7 +22,7 @@
 
                 <div class="mb-3 text-end">
                     <a href="{{ route('fertilizers.create') }}" class="btn btn-success">
-                        <i class="fas fa-plus-circle"></i> Add New Fertilizer
+                      +  Add New Fertilizer
                     </a>
                 </div>
 
@@ -63,14 +63,14 @@
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('fertilizers.edit', $fertilizer->id) }}" class="btn btn-sm btn-outline-primary me-1">
-                                            <i class="fas fa-edit"></i>
+                                            Edit
                                         </a>
                                         <form action="{{ route('fertilizers.destroy', $fertilizer->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger"
                                                 onclick="return confirm('Are you sure? This will mark it as inactive.')">
-                                                <i class="fas fa-trash-alt"></i>
+                                                Delete
                                             </button>
                                         </form>
                                     </td>

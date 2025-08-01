@@ -782,17 +782,18 @@ function confirmOrder() {
 
 
 
-
-
-
-
-
-// Enhanced resetForm function with better error handling
-function resetForm() {
+ function resetForm() {
     try {
         // Reset arrays
         selectedItems = [];
         tempSelectedCards = [];
+
+        // Reset customer fields
+        const customerFields = ['name', 'email', 'phone', 'address'];
+        customerFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) field.value = '';
+        });
 
         // Reset form elements safely
         const elements = {
@@ -801,7 +802,6 @@ function resetForm() {
             discountType: document.getElementById('discountType')
         };
 
-        // Reset each element if it exists
         Object.entries(elements).forEach(([key, element]) => {
             if (element) {
                 if (key === 'discountType') {
@@ -832,9 +832,10 @@ function resetForm() {
 
     } catch (error) {
         console.error('Error resetting form:', error);
-        // Don't show alert here as it might be called after successful operation
     }
 }
+
+
 
 // Enhanced error handling for network issues
 function handleNetworkError(error) {
@@ -890,36 +891,7 @@ document.addEventListener('DOMContentLoaded', function() {
     calculateTotal();
 });
 
-function resetForm() {
-    selectedItems = [];
-    tempSelectedCards = [];
 
-    document.getElementById('customDiscountValue').value = '';
-    document.getElementById('cashAmount').value = '';
-
-    updateItemsList();
-    calculateTotal();
-
-    // Reset payment method to first (usually Cash)
-    const paymentOptions = document.querySelectorAll('.payment-option');
-    paymentOptions.forEach(e => e.classList.remove('active'));
-    if (paymentOptions.length > 0) {
-        paymentOptions[0].classList.add('active');
-    }
-}
-
-
-
-
-
-
-
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-    updateItemsList();
-    calculateTotal();
-});
 </script>
 
 @endsection

@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <div class="mb-3 text-end">
         <a href="{{ route('fertilizers_sale') }}" class="btn btn-success">
-            <i class="fas fa-plus-circle"></i> Add New Fertilizer Sale
+          +  Add New Fertilizer Sale
         </a>
     </div>
 
@@ -21,17 +21,22 @@
             <h4 class="mb-0">Fertilizer Sales Records</h4>
         </div>
         <div class="card-body">
+                <div class="table-responsive">
             <table id="fertilizerSaleTable" class="table table-bordered table-striped">
+
+
+
                 <thead class="thead-dark">
                     <tr>
-                        <th>#</th>
+
                         <th>Supplier ID</th>
                         <th>Supplier Name</th>
                         <th>Supplier Income</th>
 
-                        
-                        <th>Items</th>
-                        <th>Created At</th>
+
+                        <th>Fertilizer List</th>
+
+                        <th>Sale Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +44,8 @@
                     @foreach($sales as $supplierId => $groupedSales)
                         @foreach($groupedSales as $index => $sale)
                         <tr class="supplier-group-{{ $supplierId }}">
-                            <td>{{ $counter++ }}</td>
+
+                             <td>{{ $sale->supplier->register_id }}</td>
 
                             <td>
                                 @if($index == 0)
@@ -48,14 +54,19 @@
                                     <span class="text-muted">{{ $sale->supplier->supplier_name ?? 'N/A' }}</span>
                                 @endif
                             </td>
-                            <td>Rs. {{ number_format($sale->supplier_income, 2) }}</td>
-                            <td>Rs. {{ number_format($sale->total_cost, 2) }}</td>
+                            <td>
+    Rs. {{ number_format($sale->supplier_income, 2) }}
+
+    <p class="text-dark fs-6">Balance : <b>Rs. {{ number_format($sale->supplier_income - $sale->total_cost, 2) }}</b></p>
+</td>
+
+
                             <td>
                                 <ul class="mb-0">
                                     @foreach($sale->items as $item)
                                         <li>
                                             {{ $item->fertilizer->name ?? 'N/A' }} -
-                                            {{ $item->quantity_grams }}g @ Rs.{{ number_format($item->unit_price, 2) }} =
+                                            {{ $item->quantity_grams }}g * Rs.{{ number_format($item->unit_price, 2) }} =
                                             Rs.{{ number_format($item->line_total, 2) }}
                                         </li>
                                     @endforeach
@@ -68,6 +79,7 @@
                 </tbody>
             </table>
         </div>
+          </div>
     </div>
 </div>
 @endsection

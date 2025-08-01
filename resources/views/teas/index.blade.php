@@ -28,7 +28,7 @@
 
             <div class="mb-3 text-end">
                 <a href="{{ route('teas.create') }}" class="btn btn-success">
-                    <i class="fas fa-plus-circle"></i> Add New Tea
+                  +  Add New Tea
                 </a>
             </div>
 
@@ -74,13 +74,13 @@
             </td>
             <td class="text-center">
                 <a href="{{ route('teas.edit', $tea->id) }}" class="btn btn-sm btn-outline-primary me-1">
-                    <i class="fas fa-edit"></i>
+                    Edit
                 </a>
                 <form action="{{ route('teas.destroy', $tea->id) }}" method="POST" class="d-inline">
                     @csrf @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-outline-danger"
                         onclick="return confirm('Are you sure?')">
-                        <i class="fas fa-trash-alt"></i>
+                        Delete
                     </button>
                 </form>
             </td>
