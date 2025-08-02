@@ -4,6 +4,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FertilizerController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,6 +43,9 @@ Route::post('/fertilizers_sale/store', [FertilizerController::class, 'fertilizer
 Route::resource('sales', SaleController::class);
 Route::post('/sales/store', [SaleController::class, 'store'])->name('sales.store');
 Route::get('/sales/receipt/{id}', [SaleController::class, 'receipt'])->name('sales.receipt');
+Route::post('/tea-income/pay', [SupplierController::class, 'processTeaIncome'])->name('tea_income.process');
 
+
+Route::resource('reports', ReportController::class);
 
 require __DIR__.'/auth.php';

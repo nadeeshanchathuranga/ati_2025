@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-white fw-bolder text-center fs-4">Fertilizer Sale</h1>
+                <h1 class="h1-font text-dark fw-bolder text-center fs-4">Fertilizer Sale</h1>
 
                 {{-- Success / Error --}}
                 @if(session('success'))

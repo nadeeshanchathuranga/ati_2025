@@ -9,7 +9,7 @@
                 <div class="row">
                <div class="col-lg-12 mx-auto">
 
-   <h1 class="text-white fw-bolder text-center fs-4">Tea Price Index</h1>
+   <h1 class="h1-font text-dark fw-bolder text-center fs-4">Tea Price Index</h1>
 
           @if(session('success'))
     <div class="alert alert-success" id="success-alert">
@@ -24,14 +24,19 @@
 @endif
 
 
+ <div class="row mb-3">
 
-
-            <div class="mb-3 text-end">
-                <a href="{{ route('teas.create') }}" class="btn btn-success">
+<div class="col-lg-6 text-start">
+ <a href="{{ route('dashboard') }}" class="btn btn-warning back-btn px-4 py-2 rounded-3">
+    Home
+</a>
+</div>
+<div class="col-lg-6 text-end">
+     <a href="{{ route('teas.create') }}" class="btn btn-success">
                   +  Add New Tea
                 </a>
-            </div>
-
+</div>
+ </div>
 
       <div class="table-responsive">
 
@@ -73,12 +78,12 @@
                 </span>
             </td>
             <td class="text-center">
-                <a href="{{ route('teas.edit', $tea->id) }}" class="btn btn-sm btn-outline-primary me-1">
+                <a href="{{ route('teas.edit', $tea->id) }}" class=" btn btn-sm btn-primary me-1">
                     Edit
                 </a>
                 <form action="{{ route('teas.destroy', $tea->id) }}" method="POST" class="d-inline">
                     @csrf @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                    <button type="submit" class="btn btn-sm btn-danger"
                         onclick="return confirm('Are you sure?')">
                         Delete
                     </button>

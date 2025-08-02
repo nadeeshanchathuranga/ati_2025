@@ -20,29 +20,28 @@
 
       @vite(['resources/css/app.css', 'resources/js/app.js'])
       <style>
-         body {
-         font-family: 'Montserrat', sans-serif;
-         }
-         @font-face {
-    font-family: 'Montserrat';
-    src: url('/fonts/montserrat/montserrat-regular.woff2') format('woff2'),
-         url('/fonts/montserrat/montserrat-regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('{{ asset('font/Montserrat-Regular.ttf') }}') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+    }
 
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/fonts/montserrat/montserrat-bold.woff2') format('woff2'),
-         url('/fonts/montserrat/montserrat-bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-}
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('{{ asset('font/Montserrat-Bold.ttf') }}') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+    }
 
-      </style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+    }
+</style>
+
    </head>
    <body class="antialiased">
-      <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+      <div class="min-h-screen  cover-img">
          @include('layouts.navigation')
 
          <main>
@@ -56,13 +55,26 @@
 
  <script src="{{ asset('js/jquery.min.js') }}"></script>
  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
- <script src="{{ asset('js/datatables.min.js') }}"></script>
+ {{-- <script src="{{ asset('js/datatables.min.js') }}"></script>
 
- <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+ <script src="{{ asset('js/dataTables.min.js') }}"></script>
  <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('js/jszip.min.js') }}"></script>
+<script src="{{ asset('js/jszip.min.js') }}"></script> --}}
+<!-- jQuery (required) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- DataTables Core -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- DataTables Buttons Extension -->
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
+<!-- JSZip for Excel Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 
 <script>

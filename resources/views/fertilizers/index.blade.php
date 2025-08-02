@@ -3,10 +3,14 @@
 @section('content')
 <div class="container-fluid mt-5">
     <div class="container">
+
+
+
+
         <div class="row">
             <div class="col-lg-12 mx-auto">
 
-                <h1 class="text-white fw-bolder text-center fs-4">Fertilizer Price Index</h1>
+                <h1 class="h1-font text-dark fw-bolder text-center fs-4">Fertilizer Price Index</h1>
 
                 @if(session('success'))
                     <div class="alert alert-success" id="success-alert">
@@ -20,11 +24,23 @@
                     </div>
                 @endif
 
-                <div class="mb-3 text-end">
-                    <a href="{{ route('fertilizers.create') }}" class="btn btn-success">
+
+
+
+
+                 <div class="row mb-3">
+
+<div class="col-lg-6 text-start">
+ <a href="{{ route('dashboard') }}" class="btn btn-warning back-btn px-4 py-2 rounded-3">
+    Home
+</a>
+</div>
+<div class="col-lg-6 text-end">
+     <a href="{{ route('fertilizers.create') }}" class="btn btn-success">
                       +  Add New Fertilizer
                     </a>
-                </div>
+</div>
+ </div>
 
                 <div class="table-responsive">
                     <table id="fertilizerTable" class="table   table-bordered   align-middle">
@@ -62,13 +78,13 @@
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('fertilizers.edit', $fertilizer->id) }}" class="btn btn-sm btn-outline-primary me-1">
+                                        <a href="{{ route('fertilizers.edit', $fertilizer->id) }}" class=" btn btn-sm btn-primary me-1">
                                             Edit
                                         </a>
                                         <form action="{{ route('fertilizers.destroy', $fertilizer->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                            <button type="submit" class="btn btn-sm btn-danger"
                                                 onclick="return confirm('Are you sure? This will mark it as inactive.')">
                                                 Delete
                                             </button>

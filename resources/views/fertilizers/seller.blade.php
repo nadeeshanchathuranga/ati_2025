@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto">
-                <h1 class="text-white fw-bolder text-center fs-4">Add New Fertilizer</h1>
+                <h1 class="h1-font text-dark fw-bolder text-center fs-4">Add New Fertilizer</h1>
 
                 @if(session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>

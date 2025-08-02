@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-10 mx-auto">
 
-                <h1 class="text-white fw-bolder text-center fs-4">Add New Supplier</h1>
+                <h1 class="h1-font text-dark fw-bolder text-center fs-4">Add New Supplier</h1>
 
                 <form action="{{ route('suppliers.store') }}" method="POST" id="supplierForm">
                     @csrf

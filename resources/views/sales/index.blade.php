@@ -3,11 +3,29 @@
 @section('content')
 <div class="container mt-5">
 
-<div class="mb-3 text-end">
-                <a href="{{ route('sales.create') }}" class="btn btn-success">
+
+
+ <div class="row mb-3">
+
+<div class="col-lg-6 text-start">
+ <a href="{{ route('dashboard') }}" class="btn btn-warning back-btn px-4 py-2 rounded-3">
+    Home
+</a>
+</div>
+<div class="col-lg-6 text-end">
+  <a href="{{ route('sales.create') }}" class="btn btn-success">
                   +  Add New Sale
                 </a>
-            </div>
+</div>
+ </div>
+
+
+
+
+
+
+
+
 
 
   <table id="saleTable" class="table   table-bordered  align-middle">

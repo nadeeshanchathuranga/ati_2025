@@ -2,8 +2,18 @@
 
 @section('content')
 <div class="container mt-5">
+
+             <div class="row mb-3">
+
+<div class="col-lg-6 text-start">
+ <a href="{{ route('teas.index') }}" class="btn btn-info text-white back-btn px-4 py-2 rounded-3">
+    Back
+</a>
+</div>
+
+ </div>
     <div class="col-md-6 mx-auto">
-        <h2 class="text-center text-white mb-4">Add Tea Stock</h2>
+        <h1 class="text-center mb-4 h1-font">Add Tea Stock</h1>
 
         <form action="{{ route('tea_stock_store') }}" method="POST" id="teaStockForm">
             @csrf

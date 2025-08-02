@@ -2,12 +2,20 @@
 
 @section('content')
 <div class="container mt-5">
+         <div class="row mb-3">
 
+<div class="col-lg-6 text-start">
+ <a href="{{ route('sales.index') }}" class="btn btn-info text-white back-btn px-4 py-2 rounded-3">
+    Back
+</a>
+</div>
+
+ </div>
     <div class="row">
 
 
   <div class="col-lg-5">
-            <h1 class="text-white pb-3">
+            <h1 class="h1-font text-dark pb-3">
                 Customer Details
             </h1>
 

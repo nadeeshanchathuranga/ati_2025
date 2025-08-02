@@ -3,10 +3,19 @@
 @section('content')
 <div class="container-fluid mt-5">
     <div class="container">
+                   <div class="row mb-3">
+
+<div class="col-lg-6 text-start">
+ <a href="{{ route('fertilizers.index') }}" class="btn btn-info text-white back-btn px-4 py-2 rounded-3">
+    Back
+</a>
+</div>
+
+ </div>
         <div class="row">
             <div class="col-lg-6 mx-auto">
 
-                <h1 class="text-white fw-bolder text-center fs-4">Edit Fertilizer</h1>
+                <h1 class="h1-font text-dark fw-bolder text-center fs-4">Edit Fertilizer</h1>
 
                 <form action="{{ route('fertilizers.update', $fertilizer->id) }}" method="POST">
                     @csrf

@@ -8,17 +8,20 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    public function index()
-    {
+   public function index()
+{
+    // Update tea_income_completed to 1 where tea_income is 0
+    Supplier::where('tea_income', 0)
+        ->where('tea_income_completed', 0) // prevent unnecessary writes
+        ->update(['tea_income_completed' => 1]);
 
-      $suppliers = Supplier::with('tea','supplierTeaStock')
-    ->orderByRaw("FIELD(status, 'active', 'inactive')")
-    ->get();
+    // Fetch suppliers with related data
+    $suppliers = Supplier::with('tea', 'supplierTeaStock')
+        ->orderByRaw("FIELD(status, 'active', 'inactive')")
+        ->get();
 
-
-
-        return view('suppliers.index', compact('suppliers'));
-    }
+    return view('suppliers.index', compact('suppliers'));
+}
 
    public function create()
 {
@@ -189,26 +192,32 @@ public function update(Request $request, Supplier $supplier)
     }
 
 
-public function pay(Request $request)
+
+
+public function processTeaIncome(Request $request)
 {
+
+  
     $request->validate([
         'supplier_id' => 'required|exists:suppliers,id',
+        'amount' => 'required|numeric|min:1',
     ]);
 
     $supplier = Supplier::findOrFail($request->supplier_id);
 
-    // Example: reset tea_income to 0 and log transaction (customize as needed)
-    $paidAmount = $supplier->tea_income;
+    // Deduct payment
+    $supplier->tea_income -= $request->amount;
 
-    $supplier->tea_income = 0;
+    // If fully paid, mark as completed
+    if ($supplier->tea_income <= 0) {
+        $supplier->tea_income = 0;
+        $supplier->tea_income_completed = 1;
+    }
+
     $supplier->save();
 
-    // Optional: Record transaction in a payments table
-
-    return redirect()->back()->with('success', "Paid LKR " . number_format($paidAmount, 2) . " to {$supplier->supplier_name}");
+    return redirect()->route('suppliers.index')->with('success', 'Payment processed successfully!');
 }
-
-
 
 
 }

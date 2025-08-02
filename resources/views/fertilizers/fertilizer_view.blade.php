@@ -2,6 +2,17 @@
 
 @section('content')
 <div class="container mt-5">
+
+
+     <div class="row mb-3">
+
+<div class="col-lg-6 text-start">
+ <a href="{{ route('fertilizers.index') }}" class="btn btn-info text-white back-btn px-4 py-2 rounded-3">
+    Back
+</a>
+</div>
+
+ </div>
     <div class="mb-3 text-end">
         <a href="{{ route('fertilizers_sale') }}" class="btn btn-success">
           +  Add New Fertilizer Sale
@@ -18,7 +29,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h4 class="mb-0">Fertilizer Sales Records</h4>
+            <h4 class="mb-0 h1-font">Fertilizer Sales Records</h4>
         </div>
         <div class="card-body">
                 <div class="table-responsive">

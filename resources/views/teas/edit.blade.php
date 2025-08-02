@@ -6,7 +6,7 @@
                 <div class="row">
                <div class="col-lg-6 mx-auto">
 
-   <h1 class="text-white fw-bolder text-center fs-4 pb-4">Edit Tea</h1>
+   <h1 class="h1-font text-dark fw-bolder text-center fs-4 pb-4">Edit Tea</h1>
 
 
     <form action="{{ route('teas.update', $tea->id) }}" method="POST">
