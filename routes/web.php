@@ -48,4 +48,13 @@ Route::post('/tea-income/pay', [SupplierController::class, 'processTeaIncome'])-
 
 Route::resource('reports', ReportController::class);
 
+
+
+
+
+
+
+
+
+
 require __DIR__.'/auth.php';

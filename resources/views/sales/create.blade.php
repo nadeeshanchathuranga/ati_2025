@@ -115,10 +115,16 @@
                     <label class="form-label">Payment Method :</label>
                     <div class="d-flex gap-3">
                         <div class="payment-option active text-center" onclick="selectPayment(this)">
-                            <img src="https://cdn-icons-png.flaticon.com/128/2331/2331966.png" alt="Cash" width="50">
+                           
+                              <img src="{{ asset('images/2331966.png') }}" width="50" alt="Fertilizer">
                         </div>
                         <div class="payment-option text-center" onclick="selectPayment(this)">
-                            <img src="https://cdn-icons-png.flaticon.com/128/633/633611.png" alt="Card" width="50">
+
+
+            <img src="{{ asset('images/633611.png') }}" width="50" alt="Fertilizer">
+
+
+
                         </div>
                     </div>
                 </div>

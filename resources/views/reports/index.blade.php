@@ -49,10 +49,10 @@
                 <div class="card-body">
                     <h5 class="card-title">Summary</h5>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <strong>Total Records:</strong> {{ $data->count() }}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <strong>Total Weight:</strong> {{ number_format($data->sum('tea_weight'), 2) }} kg
                         </div>
                         <div class="col-md-3">
@@ -61,6 +61,16 @@
                         <div class="col-md-3">
                             <strong>Total Sell Value:</strong> {{ number_format($data->sum(function($item) { return $item->selling_price * $item->tea_weight; }), 2) }}
                         </div>
+
+                         <div class="col-md-2 px-0">
+    <strong>Total Profit:</strong>
+    {{ number_format(
+        $data->sum(function($item) {
+            return ($item->selling_price - $item->buy_price) * $item->tea_weight;
+        }),
+    2) }}
+</div>
+
                     </div>
                 </div>
             </div>

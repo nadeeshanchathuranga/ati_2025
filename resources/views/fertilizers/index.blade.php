@@ -81,14 +81,15 @@
                                         <a href="{{ route('fertilizers.edit', $fertilizer->id) }}" class=" btn btn-sm btn-primary me-1">
                                             Edit
                                         </a>
-                                        <form action="{{ route('fertilizers.destroy', $fertilizer->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure? This will mark it as inactive.')">
-                                                Delete
-                                            </button>
-                                        </form>
+                                       <form action="{{ route('fertilizers.destroy', $fertilizer->id) }}" method="POST" class="d-inline">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-sm {{ $fertilizer->status == 'active' ? 'btn-danger' : 'btn-success' }}"
+        onclick="return confirm('Are you sure? This will {{ $fertilizer->status == 'active' ? 'deactivate' : 'activate' }} this fertilizer.')">
+        {{ $fertilizer->status == 'active' ? 'Deactivate' : 'Activate' }}
+    </button>
+</form>
+
                                     </td>
                                 </tr>
                             @endforeach

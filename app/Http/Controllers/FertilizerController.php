@@ -57,18 +57,17 @@ class FertilizerController extends Controller
     }
 
 
-
-
- public function destroy($id)
+public function destroy($id)
 {
     $fertilizer = Fertilizer::findOrFail($id);
 
-    // Set status to 'inactive' instead of deleting
-    $fertilizer->status = 'inactive';
+    // Toggle status
+    $fertilizer->status = $fertilizer->status === 'active' ? 'inactive' : 'active';
     $fertilizer->save();
 
-    return redirect()->back()->with('success', 'Fertilizer marked as inactive successfully.');
+    return redirect()->back()->with('success', 'Fertilizer status updated successfully.');
 }
+
 
 public function fertilizerSale()
 {

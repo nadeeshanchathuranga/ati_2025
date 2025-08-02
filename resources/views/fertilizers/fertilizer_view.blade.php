@@ -7,8 +7,8 @@
      <div class="row mb-3">
 
 <div class="col-lg-6 text-start">
- <a href="{{ route('fertilizers.index') }}" class="btn btn-info text-white back-btn px-4 py-2 rounded-3">
-    Back
+ <a href="{{ route('dashboard') }}" class="btn btn-info text-white back-btn px-4 py-2 rounded-3">
+    Home
 </a>
 </div>
 
